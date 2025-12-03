@@ -1,3 +1,4 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "../src/templates/template.hpp"
 
 int main() {
