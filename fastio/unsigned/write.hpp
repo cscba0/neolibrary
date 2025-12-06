@@ -5,7 +5,11 @@
 
 #include "../base.hpp"
 
-static auto FastIODigitTable = [] {
+namespace cscba {
+
+namespace FastIO {
+
+static auto table = [] {
     std::array<std::array<char, 4>, 10000> res;
     for (int i = 0; i < 10000; ++i) {
         res[i][0] = '0' + i / 1000;
@@ -16,55 +20,59 @@ static auto FastIODigitTable = [] {
     return res;
 }();
 
-inline void FastWrite_(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
-    memcpy(io.opos, &FastIODigitTable[x], 4);
+inline void write_(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
+    memcpy(io.opos, &table[x], 4);
     io.opos += 4;
 }
 
-inline void FastWrite__(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
+inline void write__(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
     if (x > 999) {
-        memcpy(io.opos, &FastIODigitTable[x], 4);
+        memcpy(io.opos, &table[x], 4);
         io.opos += 4;
     } else if (x > 99) {
-        memcpy(io.opos, &FastIODigitTable[x * 10], 3);
+        memcpy(io.opos, &table[x * 10], 3);
         io.opos += 3;
     } else if (x > 9) {
-        memcpy(io.opos, &FastIODigitTable[x * 100], 2);
+        memcpy(io.opos, &table[x * 100], 2);
         io.opos += 2;
     } else {
-        memcpy(io.opos, &FastIODigitTable[x * 1000], 1);
+        memcpy(io.opos, &table[x * 1000], 1);
         io.opos += 1;
     }
 }
 
 template <std::unsigned_integral T>
-inline void FastWrite(cscba::FastIO::FastIO& io, T x) noexcept {
+inline void write(cscba::FastIO::FastIO& io, T x) noexcept {
     if (9999'9999'9999'9999 < x) {
-        FastWrite__(io, x / 10000'0000'0000'0000);
-        FastWrite_(io, x / 10000'0000'0000 % 10000);
-        FastWrite_(io, x / 10000'0000 % 10000);
-        FastWrite_(io, x / 10000 % 10000);
-        FastWrite_(io, x % 10000);
+        write__(io, x / 10000'0000'0000'0000);
+        write_(io, x / 10000'0000'0000 % 10000);
+        write_(io, x / 10000'0000 % 10000);
+        write_(io, x / 10000 % 10000);
+        write_(io, x % 10000);
     } else if (9999'9999'9999 < x) {
-        FastWrite__(io, x / 10000'0000'0000);
-        FastWrite_(io, x / 10000'0000 % 10000);
-        FastWrite_(io, x / 10000 % 10000);
-        FastWrite_(io, x % 10000);
+        write__(io, x / 10000'0000'0000);
+        write_(io, x / 10000'0000 % 10000);
+        write_(io, x / 10000 % 10000);
+        write_(io, x % 10000);
     } else if (9999'9999 < x) {
-        FastWrite__(io, x / 10000'0000);
-        FastWrite_(io, x / 10000 % 10000);
-        FastWrite_(io, x % 10000);
+        write__(io, x / 10000'0000);
+        write_(io, x / 10000 % 10000);
+        write_(io, x % 10000);
     } else if (9999 < x) {
-        FastWrite__(io, x / 10000);
-        FastWrite_(io, x % 10000);
+        write__(io, x / 10000);
+        write_(io, x % 10000);
     } else {
-        FastWrite__(io, x);
+        write__(io, x);
     }
 }
+
+}  // namespace FastIO
+
+}  // namespace cscba
 
 template <std::unsigned_integral T>
 inline cscba::FastIO::FastIO& operator<<(cscba::FastIO::FastIO& io, T x) noexcept {
     io.reserve(20);
-    FastWrite(io, x);
+    cscba::FastIO::write(io, x);
     return io;
 }
