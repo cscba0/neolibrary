@@ -1,0 +1,10 @@
+#pragma once
+#include "base.hpp"
+#include "char/read.hpp"
+#include "char/write.hpp"
+#include "signed/read.hpp"
+#include "signed/write.hpp"
+#include "string/read.hpp"
+#include "string/write.hpp"
+#include "unsigned/read.hpp"
+#include "unsigned/write.hpp"

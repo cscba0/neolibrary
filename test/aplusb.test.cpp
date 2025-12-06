@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
-#include "../src/templates/template.hpp"
+#include "../templates/template.hpp"
 
 int main() {
     int a, b;
