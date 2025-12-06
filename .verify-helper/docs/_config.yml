@@ -1,2 +1,6 @@
+exclude:
+  - "all.hpp"
+  - "experimental.hpp"
+  - "fastio"
 title: cscba Library
 theme: jekyll-theme-cayman
