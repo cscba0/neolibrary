@@ -16,12 +16,12 @@ static auto FastIODigitTable = [] {
     return res;
 }();
 
-inline void FastWrite_(FASTIO& io, uint16_t x) noexcept {
+inline void FastWrite_(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
     memcpy(io.opos, &FastIODigitTable[x], 4);
     io.opos += 4;
 }
 
-inline void FastWrite__(FASTIO& io, uint16_t x) noexcept {
+inline void FastWrite__(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
     if (x > 999) {
         memcpy(io.opos, &FastIODigitTable[x], 4);
         io.opos += 4;
@@ -38,7 +38,7 @@ inline void FastWrite__(FASTIO& io, uint16_t x) noexcept {
 }
 
 template <std::unsigned_integral T>
-inline void FastWrite(FASTIO& io, T x) noexcept {
+inline void FastWrite(cscba::FastIO::FastIO& io, T x) noexcept {
     if (9999'9999'9999'9999 < x) {
         FastWrite__(io, x / 10000'0000'0000'0000);
         FastWrite_(io, x / 10000'0000'0000 % 10000);
@@ -63,7 +63,7 @@ inline void FastWrite(FASTIO& io, T x) noexcept {
 }
 
 template <std::unsigned_integral T>
-inline FASTIO& operator<<(FASTIO& io, T x) noexcept {
+inline cscba::FastIO::FastIO& operator<<(cscba::FastIO::FastIO& io, T x) noexcept {
     io.reserve(20);
     FastWrite(io, x);
     return io;

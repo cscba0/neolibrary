@@ -1,7 +1,7 @@
 #pragma once
 #include "../base.hpp"
 
-inline FASTIO& operator>>(FASTIO& io, char& c) noexcept {
+inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, char& c) noexcept {
     io.seek();
     c = *io.ipos++;
     return io;

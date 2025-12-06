@@ -3,7 +3,7 @@
 
 #include "../char/read.hpp"
 
-inline FASTIO& operator>>(FASTIO& io, std::string& s) noexcept {
+inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, std::string& s) noexcept {
     io.seek();
     s = "";
     while (' ' < *io.ipos) {

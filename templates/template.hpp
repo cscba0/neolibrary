@@ -3,4 +3,7 @@
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2")
 #endif
+namespace std {};
+namespace cscba {};
 using namespace std;
+using namespace cscba;

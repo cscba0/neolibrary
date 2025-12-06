@@ -7,14 +7,18 @@
 #include <cstring>
 #include <tuple>
 
-struct FASTIO {
+namespace cscba {
+
+namespace FastIO {
+
+struct FastIO {
     static constexpr int buffer_size = 1 << 20;
     char input_buffer[buffer_size];
     char output_buffer[buffer_size];
     char *ibegin, *iend, *ipos;
     char *obegin, *oend, *opos;
 
-    explicit FASTIO()
+    explicit FastIO()
         : ibegin(input_buffer),
           iend(input_buffer),
           ipos(input_buffer),
@@ -38,7 +42,7 @@ struct FASTIO {
 #endif
     }
 
-    ~FASTIO() noexcept { flush(); }
+    ~FastIO() noexcept { flush(); }
 
     inline void flush() noexcept {
         if (opos != obegin) {
@@ -75,6 +79,10 @@ struct FASTIO {
 #endif
 };
 
-FASTIO FIO;
+}  // namespace FastIO
+
+}  // namespace cscba
+
+cscba::FastIO::FastIO FIO;
 #define cin FIO
 #define cout FIO

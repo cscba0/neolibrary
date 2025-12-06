@@ -5,7 +5,7 @@
 #include "../base.hpp"
 
 template <std::unsigned_integral T>
-inline FASTIO& operator>>(FASTIO& io, T& x) noexcept {
+inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexcept {
     io.seek();
     uint64_t y = 0;
     {

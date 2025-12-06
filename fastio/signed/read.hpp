@@ -2,7 +2,7 @@
 #include "../unsigned/read.hpp"
 
 template <std::signed_integral T>
-inline FASTIO& operator>>(FASTIO& io, T& x) noexcept {
+inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexcept {
     io.seek();
     x = 0;
     bool neg = false;
