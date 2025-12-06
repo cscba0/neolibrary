@@ -47,7 +47,7 @@ class vector:
         return res
 
 
-class vector2:
+class vector2D:
     name = "std::vector2D"
     regex = r"^std(::__debug)?::vector<std(::__debug)?::vector<.*>.*>$"
     priority = 20
@@ -127,4 +127,32 @@ class vector2:
                     res += " "
                 res += data[i][j]
             res += "]"
+        return res
+
+
+class vector3D:
+    name = "std::vector3D"
+    regex = "^std(::__debug)?::vector<std(::__debug)?::vector<std(::__debug)?::vector<.*>.*>$"
+    priority = 30
+
+    def __init__(self, val):
+        self.val = val
+
+    def to_string(self):
+        outer_size = self.val["_M_impl"]["_M_finish"] - self.val["_M_impl"]["_M_start"]
+        if max_size < outer_size:
+            mid = max_size // 2
+            res = ""
+            for i in range(mid):
+                res += "\n    "
+                res += str(self.val["_M_impl"]["_M_start"][i])
+            res += "\n    .\n    .\n    ."
+            for i in range(mid):
+                res += "\n    "
+                res += str(self.val["_M_impl"]["_M_start"][outer_size - mid + i])
+            return res
+        res = ""
+        for i in range(outer_size):
+            res += "\n    "
+            res += str(self.val["_M_impl"]["_M_start"][i])
         return res
