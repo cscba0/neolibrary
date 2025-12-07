@@ -20,12 +20,12 @@ static auto table = [] {
     return res;
 }();
 
-inline void write_(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
+inline void write_(FastIO& io, uint16_t x) noexcept {
     memcpy(io.opos, &table[x], 4);
     io.opos += 4;
 }
 
-inline void write__(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
+inline void write__(FastIO& io, uint16_t x) noexcept {
     if (x > 999) {
         memcpy(io.opos, &table[x], 4);
         io.opos += 4;
@@ -42,7 +42,7 @@ inline void write__(cscba::FastIO::FastIO& io, uint16_t x) noexcept {
 }
 
 template <std::unsigned_integral T>
-inline void write(cscba::FastIO::FastIO& io, T x) noexcept {
+inline void write(FastIO& io, T x) noexcept {
     if (9999'9999'9999'9999 < x) {
         write__(io, x / 10000'0000'0000'0000);
         write_(io, x / 10000'0000'0000 % 10000);
@@ -66,13 +66,13 @@ inline void write(cscba::FastIO::FastIO& io, T x) noexcept {
     }
 }
 
+template <std::unsigned_integral T>
+inline FastIO& operator<<(FastIO& io, T x) noexcept {
+    io.reserve(20);
+    write(io, x);
+    return io;
+}
+
 }  // namespace FastIO
 
 }  // namespace cscba
-
-template <std::unsigned_integral T>
-inline cscba::FastIO::FastIO& operator<<(cscba::FastIO::FastIO& io, T x) noexcept {
-    io.reserve(20);
-    cscba::FastIO::write(io, x);
-    return io;
-}

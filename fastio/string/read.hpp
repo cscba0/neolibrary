@@ -3,7 +3,11 @@
 
 #include "../char/read.hpp"
 
-inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, std::string& s) noexcept {
+namespace cscba {
+
+namespace FastIO {
+
+inline FastIO& operator>>(FastIO& io, std::string& s) noexcept {
     io.seek();
     s = "";
     while (' ' < *io.ipos) {
@@ -11,3 +15,5 @@ inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, std::string&
     }
     return io;
 }
+}  // namespace FastIO
+}  // namespace cscba

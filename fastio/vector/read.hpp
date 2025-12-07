@@ -3,10 +3,16 @@
 
 #include "../base.hpp"
 
+namespace cscba {
+
+namespace FastIO {
+
 template <typename T>
-inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, std::vector<T>& v) noexcept {
+inline FastIO& operator>>(FastIO& io, std::vector<T>& v) noexcept {
     for (auto& x : v) {
         io >> x;
     }
     return io;
 }
+}  // namespace FastIO
+}  // namespace cscba

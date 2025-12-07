@@ -5,9 +5,13 @@
 #include "../unsigned/write.hpp"
 #include "precision.hpp"
 
+namespace cscba {
+
+namespace FastIO {
+
 template <std::floating_point T>
-cscba::FastIO::FastIO& operator<<(cscba::FastIO::FastIO& io, T x) {
-    io.reserve(21 + cscba::FastIO::FastIOPrecision);
+FastIO& operator<<(FastIO& io, T x) {
+    io.reserve(21 + FastIOPrecision);
     if (x < 0) {
         *io.opos++ = '-';
         x = -x;
@@ -16,10 +20,12 @@ cscba::FastIO::FastIO& operator<<(cscba::FastIO::FastIO& io, T x) {
     io << u;
     *io.opos++ = '.';
     x -= u;
-    for (int i = 0; i < cscba::FastIO::FastIOPrecision; ++i) {
+    for (int i = 0; i < FastIOPrecision; ++i) {
         x *= 10;
         *io.opos++ = '0' + static_cast<uint8_t>(x);
         x -= static_cast<uint8_t>(x);
     }
     return io;
 }
+}  // namespace FastIO
+}  // namespace cscba

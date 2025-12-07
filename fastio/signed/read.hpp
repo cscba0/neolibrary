@@ -1,8 +1,12 @@
 #pragma once
 #include "../unsigned/read.hpp"
 
+namespace cscba {
+
+namespace FastIO {
+
 template <std::signed_integral T>
-inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexcept {
+inline FastIO& operator>>(FastIO& io, T& x) noexcept {
     io.seek();
     x = 0;
     bool neg = false;
@@ -18,3 +22,5 @@ inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexce
     }
     return io;
 }
+}  // namespace FastIO
+}  // namespace cscba

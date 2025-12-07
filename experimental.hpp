@@ -1,3 +1,2 @@
 #pragma once
-#include "math/all.hpp"
-#include "templates/all.hpp"
+#include "data-structure/segmnet-tree/segment-tree.hpp"

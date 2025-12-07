@@ -1,8 +1,12 @@
 #pragma once
 #include "../base.hpp"
 
+namespace cscba {
+
+namespace FastIO {
+
 template <std::floating_point T>
-inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexcept {
+inline FastIO& operator>>(FastIO& io, T& x) noexcept {
     io.seek();
     x = 0;
     bool neg = false;
@@ -27,3 +31,5 @@ inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexce
     ++io.ipos;
     return io;
 }
+}  // namespace FastIO
+}  // namespace cscba

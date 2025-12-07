@@ -4,8 +4,12 @@
 
 #include "../base.hpp"
 
+namespace cscba {
+
+namespace FastIO {
+
 template <std::unsigned_integral T>
-inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexcept {
+inline FastIO& operator>>(FastIO& io, T& x) noexcept {
     io.seek();
     uint64_t y = 0;
     {
@@ -56,3 +60,5 @@ inline cscba::FastIO::FastIO& operator>>(cscba::FastIO::FastIO& io, T& x) noexce
     x = static_cast<T>(y);
     return io;
 }
+}  // namespace FastIO
+}  // namespace cscba
