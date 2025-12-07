@@ -1,4 +1,4 @@
-class Tuple:
+class tuple:
     name = "std::tuple"
     regex = "^std::tuple<.*>$"
 
