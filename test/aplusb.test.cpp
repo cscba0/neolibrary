@@ -1,3 +1,4 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include <fastio/base.hpp>
 #include <fastio/char/write.hpp>
 #include <fastio/signed/read.hpp>
