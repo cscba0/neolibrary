@@ -1,15 +1,13 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
+#include <fastio/base.hpp>
+#include <fastio/char/write.hpp>
+#include <fastio/signed/read.hpp>
+#include <fastio/signed/write.hpp>
+#include <templates/macro/endl.hpp>
 
-#include <string>
-
-#include "../fastio/base.hpp"
-#include "../fastio/signed/read.hpp"
-#include "../fastio/signed/write.hpp"
-#include "../fastio/string/write.hpp"
-#include "../templates/template.hpp"
+#include "templates/template.hpp"  // IWYU pragma: keep
 
 int main() {
     int a, b;
     cin >> a >> b;
-    cout << a + b << "\n";
+    cout << a + b << endl;
 }
