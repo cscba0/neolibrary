@@ -83,7 +83,8 @@ class vector2D:
                     max_width[j] = max(max_width[j], len(data[-1][j]))
             res = ""
             for i in range(mid):
-                res += "\n    "
+                if i > 0:
+                    res += "\n"
                 res += "["
                 for j in range(len(data[i])):
                     if j > 0:
@@ -92,10 +93,9 @@ class vector2D:
                         res += " "
                     res += data[i][j]
                 res += "]"
-            res += "\n    .\n    .\n    ."
+            res += "\n.\n.\n."
             for i in range(mid, mid * 2):
-                res += "\n    "
-                res += "["
+                res += "\n["
                 for j in range(len(data[i])):
                     if j > 0:
                         res += ", "
@@ -118,7 +118,8 @@ class vector2D:
                 max_width[j] = max(max_width[j], len(data[-1][j]))
         res = ""
         for i in range(outer_size):
-            res += "\n    "
+            if i > 0:
+                res += "\n"
             res += "["
             for j in range(len(data[i])):
                 if j > 0:
@@ -144,15 +145,17 @@ class vector3D:
             mid = max_size // 2
             res = ""
             for i in range(mid):
-                res += "\n    "
+                if i > 0:
+                    res += "\n\n"
                 res += str(self.val["_M_impl"]["_M_start"][i])
-            res += "\n    .\n    .\n    ."
+            res += "\n.\n.\n."
             for i in range(mid):
-                res += "\n    "
+                res += "\n\n"
                 res += str(self.val["_M_impl"]["_M_start"][outer_size - mid + i])
             return res
         res = ""
         for i in range(outer_size):
-            res += "\n    "
+            if i > 0:
+                res += "\n\n"
             res += str(self.val["_M_impl"]["_M_start"][i])
         return res
