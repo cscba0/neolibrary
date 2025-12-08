@@ -34,7 +34,7 @@ int main() {
             return {1, 0};
         }
     };
-    SegmentTree<M> seg(a);
+    SegmentTree<M::T, M::op, M::e> seg(a);
     rep(_, q) {
         uint T;
         ull l, r, x;

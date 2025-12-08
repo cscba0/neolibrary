@@ -8,12 +8,8 @@ namespace data_structure {
 
 namespace segment_tree {
 
-template <typename Monoid>
+template <typename T, auto op, auto e>
 struct SegmentTree {
-    using T = typename Monoid::T;
-    static constexpr auto op = Monoid::op;
-    static constexpr auto e = Monoid::e;
-
     int n, _n;
     std::vector<T> v;
     explicit SegmentTree() : SegmentTree(0) {}

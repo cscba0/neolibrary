@@ -25,7 +25,7 @@ int main() {
             return 0;
         }
     };
-    SegmentTree<M> seg(a);
+    SegmentTree<M::T, M::op, M::e> seg(a);
     while (q--) {
         int T;
         cin >> T;
