@@ -9,16 +9,18 @@ namespace cscba {
 
 namespace FastIO {
 
-static auto table = [] {
-    std::array<std::array<char, 4>, 10000> res;
-    for (int i = 0; i < 10000; ++i) {
-        res[i][0] = '0' + i / 1000;
-        res[i][1] = '0' + i / 100 % 10;
-        res[i][2] = '0' + i / 10 % 10;
-        res[i][3] = '0' + i % 10;
-    }
-    return res;
-}();
+template <int... Ns>
+constexpr auto make_table(std::integer_sequence<int, Ns...>) {
+    return std::array<std::array<char, 4>, sizeof...(Ns)>{
+        std::array<char, 4>{
+            char('0' + Ns / 1000),
+            char('0' + (Ns / 100) % 10),
+            char('0' + (Ns / 10) % 10),
+            char('0' + (Ns % 10))}...};
+}
+
+constexpr static auto table =
+    make_table(std::make_integer_sequence<int, 10000>{});
 
 inline void write_(FastIO& io, uint16_t x) noexcept {
     memcpy(io.opos, &table[x], 4);
