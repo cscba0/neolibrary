@@ -1,0 +1,40 @@
+#pragma once
+#include <type_traits>
+
+namespace cscba {
+
+namespace math {
+
+template <typename T = void>
+struct Infinite;
+
+template <typename T>
+constexpr T INF_CONST() {
+    if constexpr (std::is_same_v<T, int>) {
+        return 2147483647;
+    } else if constexpr (std::is_same_v<T, long long>) {
+        return 9223372036854775807LL;
+    } else {
+        static_assert(sizeof(T) == 0, "Unsupported type");
+    }
+}
+
+template <>
+struct Infinite<void> {
+    operator int() const {
+        return INF_CONST<int>();
+    }
+
+    operator long long() const {
+        return INF_CONST<long long>();
+    }
+};
+
+template <typename T>
+struct Infinite {
+    constexpr operator T() const {
+        return INF_CONST<T>();
+    }
+};
+}  // namespace math
+}  // namespace cscba

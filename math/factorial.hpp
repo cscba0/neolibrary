@@ -7,10 +7,10 @@ namespace cscba {
 namespace math {
 
 template <typename T>
-struct Permutation {
+struct Factorial {
     std::vector<T> p;
 
-    Permutation() : p({T{1}, T{1}}) {}
+    Factorial() : p({T{1}, T{1}}) {}
 
     T operator[](std::size_t n) {
         while (p.size() <= n) {

@@ -28,7 +28,7 @@ int main() {
     struct M {
         using T = pair<ull, ull>;
         static T op(pair<ull, ull> a, pair<ull, ull> b) {
-            return {a.first * b.first % MOD1, (a.second * b.first + b.second) % MOD1};
+            return {a.first * b.first % MOD998244353, (a.second * b.first + b.second) % MOD998244353};
         };
         static T e() {
             return {1, 0};
@@ -43,7 +43,7 @@ int main() {
             seg.set(l, {r, x});
         } else {
             auto res = seg(l, r);
-            auto ans = (res.first * x + res.second) % MOD1;
+            auto ans = (res.first * x + res.second) % MOD998244353;
             cout << ans << endl;
         }
     }

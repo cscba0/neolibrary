@@ -1,6 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 
+#include "data-structure/segmnet-tree/segment-tree.hpp"
 #include "fastio/base.hpp"
 #include "fastio/char/read.hpp"
 #include "fastio/char/write.hpp"
@@ -19,6 +20,8 @@
 #include "fastio/vector/read.hpp"
 #include "fastio/vector/write.hpp"
 #include "math/modint.hpp"
+#include "string/lcp_array.hpp"
+#include "string/suffix_array.hpp"
 #include "templates/chminmax.hpp"
 #include "templates/local.hpp"
 #include "templates/macro/bit.hpp"
