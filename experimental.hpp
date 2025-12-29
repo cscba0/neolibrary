@@ -1,5 +1,8 @@
 #pragma once
+#include "data-structure/segmnet-tree/lazy-segment-tree.hpp"
+#include "data-structure/union-find.hpp"
 #include "math/combination.hpp"
 #include "math/factorial.hpp"
+#include "math/fraction.hpp"
 #include "math/infinite.hpp"
 #include "math/point.hpp"

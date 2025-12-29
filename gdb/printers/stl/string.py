@@ -1,7 +1,7 @@
 class string:
-    name = "std::string"
+    name = "^std::string$"
     regex = "string"
-    priority = 10
+    priority = 9
 
     def __init__(self, val):
         self.val = val
