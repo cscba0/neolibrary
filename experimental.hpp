@@ -1,6 +1,7 @@
 #pragma once
 #include "data-structure/segmnet-tree/lazy-segment-tree.hpp"
 #include "data-structure/union-find.hpp"
+#include "fastio/fraction/write.hpp"
 #include "math/combination.hpp"
 #include "math/factorial.hpp"
 #include "math/fraction.hpp"

@@ -14,7 +14,7 @@ struct Factorial {
 
     T operator[](std::size_t n) {
         while (p.size() <= n) {
-            p.emplace_back(p.back() * T{p.size()});
+            p.emplace_back(p.back() * T(p.size()));
         }
         return p[n];
     }

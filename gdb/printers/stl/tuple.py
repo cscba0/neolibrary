@@ -1,3 +1,14 @@
+import os, sys
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+root = os.path.abspath(os.path.join(base_dir, "..", ".."))
+
+sys.path.insert(0, os.path.join(root, "lib"))
+
+
+from tupl import draw_tuple  # pyright: ignore[reportMissingImports]
+
+
 class tuple:
     name = "std::tuple"
     regex = "^std::tuple<.*>$"
@@ -7,15 +18,14 @@ class tuple:
 
     def to_string(self):
         size = len(self.get_template_arg_list(self.val.type))
+        if size == 0:
+            return draw_tuple([])  # pyright: ignore[reportCallIssue]
         node = self.val.cast(self.val.type.fields()[0].type)
-        res = "("
-        for i in range(size):
-            if i > 0:
-                res += ", "
-            res += str(self._tuple_impl_get(node))
+        data = []
+        for _ in range(size):
+            data.append(str(self._tuple_impl_get(node)).strip())
             node = node.cast(node.type.fields()[0].type)
-        res += ")"
-        return res
+        return draw_tuple(data)  # pyright: ignore[reportCallIssue]
 
     def get_template_arg_list(self, type_obj):
         n = 0

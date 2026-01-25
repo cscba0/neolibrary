@@ -138,7 +138,6 @@ inline void sa_is(std::vector<int>& ind, std::vector<int>& v, int upper) {
     sa_is(ind, o, _upper);
     {
         std::vector<int> ordered_lms;
-        bool first = true;
         for (int i = 0; i < (int)lms.size(); ++i) {
             ordered_lms.emplace_back(lms[ind[i]]);
         }
@@ -148,6 +147,17 @@ inline void sa_is(std::vector<int>& ind, std::vector<int>& v, int upper) {
     induced(res, v, upper, ls, lms);
     ind = res;
     return;
+}
+
+inline std::vector<int> suffix_array(std::vector<int>& v) {
+    std::vector<int> ind(v.size());
+    int m = 0;
+    for (auto& e : v) {
+        ++e;
+        m = std::max(m, e);
+    }
+    sa_is(ind, v, m + 1);
+    return ind;
 }
 
 inline std::vector<int> suffix_array(const std::string& s) {

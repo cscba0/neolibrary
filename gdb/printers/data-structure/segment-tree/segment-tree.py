@@ -21,7 +21,7 @@ class SegmentTree:
         height = 1
         while 2 ** (height - 1) < size:
             height += 1
-        data = get_value_from_vector(list(str(self.val["v"])), size * 2)
+        data = get_value_from_vector(str(self.val["v"]))
         padding = [0 for _ in range(height + 1)]
 
         # 幅を計算する

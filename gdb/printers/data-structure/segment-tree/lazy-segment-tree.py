@@ -21,8 +21,8 @@ class LazySegmentTree:
         height = 1
         while 2 ** (height - 1) < size:
             height += 1
-        data = get_value_from_vector(list(str(self.val["d"])), size * 2)
-        lazy = get_value_from_vector(list(str(self.val["lz"])), size)
+        data = get_value_from_vector(str(self.val["d"]))
+        lazy = get_value_from_vector(str(self.val["lz"]))
         for i in range(size):
             data[i] = f"{data[i]}\n{lazy[i]}"
         padding = [0 for _ in range(height + 1)]

@@ -7,9 +7,9 @@ root = os.path.abspath(os.path.join(base_dir, "..", ".."))
 sys.path.insert(0, os.path.join(root, "lib"))
 
 
-from vector import get_value_from_vector
+from vector import get_value_from_vector, draw_vector
 
-max_size = 30
+max_size = 40
 
 
 class vector:
@@ -22,29 +22,11 @@ class vector:
 
     def to_string(self):
         size = self.val["_M_impl"]["_M_finish"] - self.val["_M_impl"]["_M_start"]
-        if max_size < size:
-            mid = max_size // 2
-            res = "["
-            for i in range(mid):
-                if 0 < i:
-                    res += ", "
-                res += str(self.val["_M_impl"]["_M_start"][i])
-
-            res += ", ... "
-            for i in range(mid):
-                if 0 < i:
-                    res += ", "
-                res += str(self.val["_M_impl"]["_M_start"][size - mid + i])
-            res += "]"
-            return res
-
-        res = "["
+        data = []
         for i in range(size):
-            if i > 0:
-                res += ", "
-            res += str(self.val["_M_impl"]["_M_start"][i])
-        res += "]"
-        return res
+            data.append(str(self.val["_M_impl"]["_M_start"][i]).strip())
+
+        return draw_vector(data)  # pyright: ignore[reportCallIssue]
 
 
 class vector2D:
@@ -57,78 +39,98 @@ class vector2D:
 
     def to_string(self):
         outer_size = self.val["_M_impl"]["_M_finish"] - self.val["_M_impl"]["_M_start"]
-        if max_size < outer_size:
-            mid = max_size // 2
-            data = []
-            max_width = []
-            for i in range(mid):
-                data.append(
-                    get_value_from_vector(
-                        str(self.val["_M_impl"]["_M_start"][i]), -1
-                    )  # pyright: ignore[reportCallIssue]
-                )
-                for j in range(len(data[-1])):
-                    if len(max_width) <= j:
-                        max_width.append(0)
-                    max_width[j] = max(max_width[j], len(data[-1][j]))
-            for i in range(mid):
-                data.append(
-                    get_value_from_vector(
-                        str(self.val["_M_impl"]["_M_start"][outer_size - mid + i]), -1
-                    )  # pyright: ignore[reportCallIssue]
-                )
-                for j in range(len(data[-1])):
-                    if len(max_width) <= j:
-                        max_width.append(0)
-                    max_width[j] = max(max_width[j], len(data[-1][j]))
-            res = ""
-            for i in range(mid):
-                if i > 0:
-                    res += "\n"
-                res += "["
-                for j in range(len(data[i])):
-                    if j > 0:
-                        res += ", "
-                    for _ in range(max_width[j] - len(data[i][j])):
-                        res += " "
-                    res += data[i][j]
-                res += "]"
-            res += "\n.\n.\n."
-            for i in range(mid, mid * 2):
-                res += "\n["
-                for j in range(len(data[i])):
-                    if j > 0:
-                        res += ", "
-                    for _ in range(max_width[j] - len(data[i][j])):
-                        res += " "
-                    res += data[i][j]
-                res += "]"
-            return res
         data = []
+        max_height = [1 for _ in range(outer_size)]
         max_width = []
         for i in range(outer_size):
             data.append(
                 get_value_from_vector(
-                    str(self.val["_M_impl"]["_M_start"][i]), -1
+                    str(self.val["_M_impl"]["_M_start"][i])
                 )  # pyright: ignore[reportCallIssue]
             )
-            for j in range(len(data[-1])):
-                if len(max_width) <= j:
-                    max_width.append(0)
-                max_width[j] = max(max_width[j], len(data[-1][j]))
-        res = ""
+        flg = False
+        if max_size < outer_size:
+            flg = True
+            mid = max_size // 2
+            fixed = []
+            for i in range(mid):
+                fixed.append(data[i])
+            for i in range(outer_size - mid, outer_size):
+                fixed.append(data[i])
+            data = fixed.copy()
+            outer_size = len(data)
         for i in range(outer_size):
-            if i > 0:
-                res += "\n"
-            res += "["
+            while len(max_width) < len(data[i]):
+                max_width.append(1)
             for j in range(len(data[i])):
-                if j > 0:
-                    res += ", "
-                for _ in range(max_width[j] - len(data[i][j])):
-                    res += " "
-                res += data[i][j]
-            res += "]"
-        return res
+                max_height[i] = max(max_height[i], len(data[i][j].split("\n")))
+                width = 0
+                for line in data[i][j].split("\n"):
+                    width = max(width, len(line))
+                max_width[j] = max(max_width[j], width)
+
+        if True:
+            for i in range(outer_size):
+                while len(data[i]) < len(max_width):
+                    data[i].append(
+                        "\n".join([" " * max_width[j] for j in range(max_height[i])])
+                    )
+
+        res = ["" for _ in range(sum(max_height) + outer_size + 1)]
+
+        res[0] = "┌"
+        if True:
+            nex = max_width[0]
+            ind = 1
+            for i in range(sum(max_width) + len(max_width) - 1):
+                if i == nex:
+                    res[0] += "┬"
+                    nex += max_width[ind] + 1
+                    ind += 1
+                else:
+                    res[0] += "─"
+        res[0] += "┐"
+
+        pos = 1
+        for i in range(outer_size):
+            for j in range(max_height[i]):
+                res[pos + j] = "│"
+            for j in range(len(data[i])):
+                spl = data[i][j].split("\n")
+                for k in range(len(spl)):
+                    res[pos + k] += spl[k]
+                    for _ in range(max_width[j] - len(spl[k])):
+                        res[pos + k] += " "
+                    res[pos + k] += "│"
+            pos += max_height[i] + 1
+            if i == outer_size - 1:
+                res[pos - 1] += "└"
+            else:
+                res[pos - 1] += "├"
+            nex = max_width[0]
+            ind = 1
+            for j in range(sum(max_width) + len(max_width) - 1):
+                if j == nex:
+                    if i == outer_size - 1:
+                        res[pos - 1] += "┴"
+                    else:
+                        res[pos - 1] += "┼"
+                    nex += max_width[ind] + 1
+                    ind += 1
+                else:
+                    res[pos - 1] += "─"
+            if i == outer_size - 1:
+                res[pos - 1] += "┘"
+            else:
+                res[pos - 1] += "┤"
+        if flg:
+            pos = 1
+            for i in range(max_size // 2):
+                pos += max_height[i] + 1
+            res.insert(pos, res[pos - 1])
+            x_pos = (sum(max_width) + len(max_width) - 1) // 2
+            res.insert(pos, " " * x_pos + "...")
+        return "\n".join(res)
 
 
 class vector3D:
